@@ -45,6 +45,10 @@ function Navbar() {
                 <li className="nav-item">
                   <a className="nav-link" href="/dashboard">Dashboard</a>
                 </li>
+                
+                <li className="nav-item">
+                  <a className="nav-link" href="/inbox">Inbox</a>
+                </li>
                 <li className="nav-item">
                   <a className="nav-link" onClick={logoutUser} style={{cursor:"pointer"}}>Logout</a>
                 </li>

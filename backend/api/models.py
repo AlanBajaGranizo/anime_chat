@@ -15,10 +15,16 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    full_name=models.CharField(max_length=100)
-    bio=models.CharField(max_length=300)
-    image=models.ImageField(default="default.jpg", upload_to="user_images")
+    full_name=models.CharField(max_length=100, null=True, blank=True)
+    bio=models.CharField(max_length=300, null=True, blank=True)
+    image=models.ImageField(default="default.jpg", upload_to="user_images", null=True, blank=True)
     verified = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.full_name == "" or self.full_name ==None:
+            self.full_name = self.user.username
+        super(Profile,self).save(*args,**kwargs)
+
     def __str__(self):
         return self.full_name
     
@@ -33,9 +39,9 @@ post_save.connect(create_user_profile,sender=User)
 post_save.connect(save_user_profile, sender=User)
 
 class ChatMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender")
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True, related_name="user")
+    sender = models.ForeignKey(User, on_delete=models.SET_NULL,null=True, related_name="sender")
+    receiver = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,related_name="receiver")
 
     message= models.CharField(max_length=100)
     is_read=models.BooleanField(default=False)
@@ -51,4 +57,9 @@ class ChatMessage(models.Model):
     @property
     def sender_profile(self):
         sender_profile= Profile.objects.get(user=self.sender)
+        return sender_profile
+    @property
+    def receiver_profile(self):
+        receiver_profile = Profile.objects.get(user=self.receiver)
+        return receiver_profile
 

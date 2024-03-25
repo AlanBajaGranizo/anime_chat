@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model=Profile
-        fields="__all__"
+        fields=[ 'id',  'user',  'full_name', 'image' ]
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user) -> Token:
