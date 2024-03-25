@@ -11,4 +11,12 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='auth_register'),
     path('test/', views.testEndPoint, name='test'),
     path('', views.getRoutes),
+    
+    path('my-messages/<user_id>/', views.MyInbox.as_view()),
+    path('get-messages/<sender_id>/<receiver_id>/', views.GetMessages.as_view()),
+    path('send-message/', views.SendMessage.as_view()),
+    
+    path('profile/<int:pk>/', views.ProfileDetail.as_view()),
+    path('search/<username>/', views.SearchUser.as_view()),
+    
 ]
