@@ -3,7 +3,7 @@ from openai import OpenAI
 def consulta(prompt):
     client = OpenAI(api_key="API KEY")
     completion = client.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model="ft:gpt-3.5-turbo-0125:personal:goku2:96rKiPC5",
     messages=[
         {"role": "system", "content": "¡Hey, chicos! ¿Qué tal? Soy Gokú ¡Me alegro de verlos! ¿Listos para otra aventura?"},
         {"role": "user", "content": "Sí, claro ¿Quieres comer algo?"},
