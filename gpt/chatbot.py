@@ -3,7 +3,7 @@ from openai import OpenAI
 
 def consulta(prompt):
     client = OpenAI(
-        api_key="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")
+        api_key="YOUR API KEY")
     completion = client.chat.completions.create(
         model="ft:gpt-3.5-turbo-0125:personal:goku2:96rKiPC5",
         messages=[
